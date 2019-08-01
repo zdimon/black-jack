@@ -14,6 +14,15 @@ import { SocketService } from '../services/socket.service';
     <ion-title>
       Users online
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button 
+      color="success"
+      fill="outline" 
+      slot="end" 
+      (click)="update()">
+        Update
+      </ion-button> 
+    </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
@@ -44,6 +53,7 @@ export class UsersOnlineComponent implements OnInit {
 
   ngOnInit(){
       this.mylogin = localStorage.getItem('username');
+      this.socket_service.login(this.mylogin);
       this.socket_service.usersOnline$.subscribe((users_online: any) => {
         this.users_online = users_online;
         console.log('Getting online users');
@@ -52,12 +62,19 @@ export class UsersOnlineComponent implements OnInit {
         this.room = room;
         this.router.navigate(["room", room.uuid]);
       })
-      this.socket_service.getUsersOnline();
+      
+        this.socket_service.getUsersOnline();
+      
+     
   }
 
   inviteUser(username: string){
     console.log(`invite ${username}`);
     this.socket_service.createRoom(localStorage.getItem('username'),username);
+  }
+
+  update(){
+    this.socket_service.getUsersOnline();
   }
 
 }

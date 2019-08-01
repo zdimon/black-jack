@@ -48,4 +48,16 @@ export class UserManager {
     console.log(this.users);
   }
 
+  clearDeadRooms(io: any){
+    for(let user of this.users){
+      let is_exist = false;
+      console.log(`Cleaning ${user}`)
+      var sockets = io.sockets.sockets;
+      for(let socketId in sockets){
+        if (sockets[socketId].username == user) is_exist = true;
+      }
+      if(!is_exist) this.users.splice(this.users.indexOf(user),1);
+    }
+  }
+
 }

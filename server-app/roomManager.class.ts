@@ -45,6 +45,8 @@ export class RoomManager {
   winner: string;
   overboard: number = 21;
 
+
+
   checkWinner(){
     // проигрыш по перебору
     for(var u of this.users){
