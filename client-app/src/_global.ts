@@ -1,2 +1,2 @@
-var SOCKET_SERVER='http://localhost:3000';
-export default SOCKET_SERVER;
+const SOCKET_SERVER='http://localhost:3000';
+export {SOCKET_SERVER};
