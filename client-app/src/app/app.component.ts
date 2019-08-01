@@ -59,6 +59,9 @@ export class AppComponent {
     } else {
       this.username = localStorage.getItem('username');
       this.socket_service.login(this.username);
+      
+      this.router.navigate(['/online']);
+      
     }
 
   }
