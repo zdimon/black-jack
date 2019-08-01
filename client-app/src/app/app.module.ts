@@ -15,8 +15,8 @@ import { UsersOnlineComponent } from './components/users.online.component';
 
 import { TableComponent } from './components/table.component';
 import { CardComponent } from './components/card.component';
-
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+import { SOCKET_SERVER } from '../global';
+const config: SocketIoConfig = { url: SOCKET_SERVER, options: {} };
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, UsersOnlineComponent, TableComponent, CardComponent],
