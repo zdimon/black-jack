@@ -3,8 +3,8 @@
     <ion-menu type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-title *ngIf="username">{{ username  }}</ion-title>
-          <ion-title *ngIf="!username">BlackJack</ion-title>
+          <ion-title *ngIf="is_auth">{{ username  }}</ion-title>
+          <ion-title *ngIf="!is_auth">BlackJack</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>

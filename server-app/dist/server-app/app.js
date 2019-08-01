@@ -37,10 +37,10 @@ io.on('connection', function (socket) {
     });
     socket.on("login", (username) => {
         UM.addUser(username);
-        UM.clearDeadRooms(io);
+        //UM.clearDeadRooms(io);
         socket.username = username;
         socket.broadcast.emit("action:getUsersOnline", UM.getUsers());
-        socket.emit("action:login");
+        socket.emit("action:login", { username: username });
     });
     socket.on("unlogin", (username) => {
         console.log(`Unlogin ${username}`);

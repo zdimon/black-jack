@@ -103,11 +103,11 @@ import { SocketService } from '../services/socket.service';
             <ion-label>Score:</ion-label>
             <ion-label slot="end">{{ other.points  }}$</ion-label>
           </ion-item>
-          <app-card>
+          <ion-item>
             <ul>
               <li *ngFor="let card of other.cards"><app-card [card]="card"></app-card></li>
             </ul>
-          </app-card>
+          </ion-item>
         </ion-card-content>
       </ion-card>
 

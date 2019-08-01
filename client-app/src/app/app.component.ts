@@ -42,9 +42,11 @@ export class AppComponent {
       this.is_auth = true;
     }
 
-    this.socket_service.login$.subscribe(() => {
+    this.socket_service.login$.subscribe((data: any) => {
       console.log('Login');
       this.is_auth = true;
+      this.username = data.username;
+
     });
 
     this.socket_service.logout$.subscribe(() => {
