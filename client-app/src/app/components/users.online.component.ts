@@ -21,7 +21,15 @@ import { SocketService } from '../services/socket.service';
     <ion-list>
       <ion-item *ngFor="let user of users_online">
         <ion-icon name="happy" slot="start"></ion-icon>
-        <ion-label (click)="inviteUser(user)">{{ user }}</ion-label>
+        <ion-label>{{ user }}</ion-label>
+        <ion-button 
+        color="success"
+        fill="outline" 
+        slot="end" 
+        (click)="inviteUser(user)"
+        *ngIf="user!=mylogin">
+          Join
+        </ion-button>
       </ion-item>
     </ion-list>
   </ion-content>
