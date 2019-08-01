@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(){
     if(localStorage.getItem('username')){
-      this.router.navigate(['']);
+      this.router.navigate(['/online']);
     }
 
     this.socket_service.checkLoginResult$.subscribe((data: any) => {
