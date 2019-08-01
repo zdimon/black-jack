@@ -151,7 +151,7 @@ io.on('connection', function(socket: any){
       for(let user of room.users){
         if(user.username.indexOf('BotFor') != -1){
           room.getCardByUser(user.username);
-          socket.emit('action:getRoom',room);
+          
           if(user.points<17){
             console.log('Bot get card');
             setTimeout(() => {botMove(socket,room)},2500);
@@ -159,7 +159,7 @@ io.on('connection', function(socket: any){
           } else {
             console.log('Bot finish');
             room.stopGettingCardByUser(user.username);
-            socket.emit('action:getRoom',room); 
+            
             /*
             setTimeout(()=>{
               console.log('Bot start');
@@ -168,7 +168,7 @@ io.on('connection', function(socket: any){
             },5000)
             */
           }
-          
+          socket.emit('action:getRoom',room);
         }
       }
 
