@@ -12,7 +12,7 @@ import { LoginComponent } from './components/login.component';
 import { SocketService } from './services/socket.service';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { UsersOnlineComponent } from './components/users.online.component';
-import { RemoveLoginPipe } from './pipes/removelogin.pype';
+
 import { TableComponent } from './components/table.component';
 import { CardComponent } from './components/card.component';
 
@@ -31,7 +31,6 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     SocketService,
     StatusBar,
     SplashScreen,
-    RemoveLoginPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
