@@ -12,7 +12,7 @@ import { SocketService } from '../services/socket.service';
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title *ngIf="me">
-          Balance: {{ me.account  }} $ Score: {{ me.points  }} points
+          <span style="color: green">{{ me.points  }}</span> points
         </ion-title>
         <ion-buttons slot="end" *ngIf="me && room">
 
@@ -68,22 +68,24 @@ import { SocketService } from '../services/socket.service';
 
     <ion-card class="my-alert" *ngIf="room.winner !== 'undefined' ">
       <ion-item>
-        {{ room.winner }} is winner!
+         <h2 *ngIf="room.winner==username" style="color: green">WIN!</h2>
+         <h2 *ngIf="room.winner!=username && room.winner!='draw'" style="color: red">LOST!</h2>
+         <h2 *ngIf="room.winner=='draw'" style="color: yellow">DRAW :-(</h2>
       </ion-item>
     </ion-card> 
     
-    <ion-card *ngIf="room">
+    <ion-card *ngIf="room && me">
       <ion-item>
-        <ion-card-header>Current bit: {{ room.bet }} $</ion-card-header>
+        <ion-card-header>Bit: {{ room.bet }} $</ion-card-header>
+        <div class="item-note" slot="end">
+        Balance: {{me.account}} $
+      </div>
       </ion-item>
     </ion-card>    
 
     <ion-card *ngIf="me">
-      <ion-card-header>{{ me.username }}</ion-card-header>
+      <ion-card-header>Your cards:</ion-card-header>
       <ion-card-content>
-          <ion-item>
-            <ion-label>Score: {{ me.points  }} points</ion-label>
-          </ion-item>
           <ion-item>
             <ul>
               <li *ngFor="let card of me.cards"><app-card [card]="card"></app-card></li>
@@ -95,7 +97,7 @@ import { SocketService } from '../services/socket.service';
     
     
       <ion-card *ngIf="other">
-        <ion-card-header>{{ other.username }}</ion-card-header>
+        <ion-card-header>{{ other.username }}'s cards</ion-card-header>
         <ion-card-content>
           <ion-item>
             <ion-label>Balance:</ion-label>
