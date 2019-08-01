@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const deck_class_1 = require("../client-app/src/app/class/deck.class");
-const card_class_1 = require("../client-app/src/app/class/card.class");
+const deck_class_1 = require("../client-app/src/app/deck.class");
+const card_class_1 = require("../client-app/src/app/game/card.class");
 const uuidv1 = require('uuid/v1');
 /*
   {

@@ -68,9 +68,9 @@ import { SocketService } from '../services/socket.service';
 
     <ion-card class="my-alert" *ngIf="room.winner !== 'undefined' ">
       <ion-item>
-         <h2 *ngIf="room.winner==username" style="color: green">WIN!</h2>
-         <h2 *ngIf="room.winner!=username && room.winner!='draw'" style="color: red">LOST!</h2>
-         <h2 *ngIf="room.winner=='draw'" style="color: yellow">DRAW :-(</h2>
+         <h2 *ngIf="room.winner==username" style="color: green">WIN! ({{me.points}}/{{other.points}})</h2>
+         <h2 *ngIf="room.winner!=username && room.winner!='draw'" style="color: red">LOST! ({{me.points}}/{{other.points}})</h2>
+         <h2 *ngIf="room.winner=='draw'" style="color: yellow">DRAW ({{me.points}}/{{other.points}}) :-(</h2>
       </ion-item>
     </ion-card> 
     
@@ -83,9 +83,9 @@ import { SocketService } from '../services/socket.service';
       </ion-item>
     </ion-card>    
 
-    <ion-card *ngIf="me">
-      <ion-card-header>Your cards:</ion-card-header>
-      <ion-card-content>
+    <ion-card *ngIf="me" [style.backgroundColor]="room.current_player==me.username ? 'green' : 'silver'">
+      <ion-card-header style="color: black">Your cards:</ion-card-header>
+      <ion-card-content >
           <ion-item>
             <ul>
               <li *ngFor="let card of me.cards"><app-card [card]="card"></app-card></li>
@@ -96,16 +96,12 @@ import { SocketService } from '../services/socket.service';
     
     
     
-      <ion-card *ngIf="other">
-        <ion-card-header>{{ other.username }}'s cards</ion-card-header>
+      <ion-card *ngIf="other" [style.backgroundColor]="room.current_player==other.username ? 'green' : 'silver'">
+        <ion-card-header style="color: black">{{ other.username }}'s cards</ion-card-header>
         <ion-card-content>
           <ion-item>
-            <ion-label>Balance:</ion-label>
-            <ion-label slot="end">{{ other.account  }}$</ion-label>
-          </ion-item>
-          <ion-item *ngIf="room.status=='finished' ">
             <ion-label>Score:</ion-label>
-            <ion-label slot="end">{{ other.points  }} points</ion-label>
+            <ion-label slot="end">{{ other.points  }}$</ion-label>
           </ion-item>
           <ion-item>
             <ul>

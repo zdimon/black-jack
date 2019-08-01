@@ -1,7 +1,7 @@
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-import { Deck } from '../client-app/src/app/deck.class';
+import { Deck } from '../client-app/src/app/class/deck.class';
 import { UserManager } from './userManager.class';
 import { RoomManager } from './roomManager.class';
 const uuidv1 = require('uuid/v1');
@@ -149,21 +149,25 @@ io.on('connection', function(socket: any){
       
       for(let user of room.users){
         if(user.username.indexOf('BotFor') != -1){
-          console.log(room.users);
           room.getCardByUser(user.username);
-          socket.emit('action:getRoom',room);
+          
           if(user.points<17){
             console.log('Bot get card');
-            botMove(socket,room);
+            setTimeout(() => {botMove(socket,room)},2500);
+            
           } else {
             console.log('Bot finish');
             room.stopGettingCardByUser(user.username);
+            
+            /*
             setTimeout(()=>{
               console.log('Bot start');
               let data = {room_uuid: room.uuid, username: user.username};
               createNewGame(data);
-            },4000)
+            },5000)
+            */
           }
+          socket.emit('action:getRoom',room);
         }
       }
 

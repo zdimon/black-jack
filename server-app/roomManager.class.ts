@@ -1,5 +1,5 @@
-import { Deck } from '../client-app/src/app/deck.class';
-import { Card } from '../client-app/src/app/game/card.class';
+import { Deck } from '../client-app/src/app/class/deck.class';
+import { Card } from '../client-app/src/app/class/card.class';
 import { createBrotliCompress } from 'zlib';
 const uuidv1 = require('uuid/v1');
 /*
@@ -124,7 +124,6 @@ export class RoomManager {
          card.faceUp();
          u.cards.push(card);
          u.points = u.points + card.getScore();
-         
       }
     }
     this.checkWinner();
