@@ -53,7 +53,7 @@ class UserManager {
                 if (sockets[socketId].username == user)
                     is_exist = true;
             }
-            if (!is_exist)
+            if (!is_exist && user.indexOf('BotFor') == -1)
                 this.users.splice(this.users.indexOf(user), 1);
         }
     }
