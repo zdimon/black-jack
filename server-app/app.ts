@@ -159,7 +159,7 @@ io.on('connection', function(socket: any){
           } else {
             console.log('Bot finish');
             room.stopGettingCardByUser(user.username);
-            socket.emit('action:getRoom',room);
+            socket.emit('action:getRoom',room); 
             /*
             setTimeout(()=>{
               console.log('Bot start');
