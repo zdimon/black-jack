@@ -99,15 +99,15 @@ import { SocketService } from '../services/socket.service';
       <ion-card *ngIf="other" [style.backgroundColor]="room.current_player==other.username ? 'green' : 'silver'">
         <ion-card-header style="color: black">{{ other.username }}'s cards</ion-card-header>
         <ion-card-content>
-          <ion-item>
+          <ion-item *ngIf="room.status=='finished'">
             <ion-label>Score:</ion-label>
             <ion-label slot="end">{{ other.points  }}$</ion-label>
           </ion-item>
-          <ion-item>
+          <app-card>
             <ul>
               <li *ngFor="let card of other.cards"><app-card [card]="card"></app-card></li>
             </ul>
-          </ion-item>
+          </app-card>
         </ion-card-content>
       </ion-card>
 
