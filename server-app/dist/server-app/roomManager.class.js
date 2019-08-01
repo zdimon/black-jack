@@ -93,7 +93,12 @@ class RoomManager {
         }
     }
     hideOpponentCards(username) {
-        if (this.status == 'active') {
+        var is_one_stoped = false;
+        for (var u of this.users) {
+            if (u.is_stoped)
+                is_one_stoped = true;
+        }
+        if (this.status == 'active' && !is_one_stoped) {
             for (var u of this.users) {
                 if (username !== u.username) {
                     for (let card of u.cards) {
@@ -109,9 +114,9 @@ class RoomManager {
         }
     }
     getCardByUser(username) {
+        var card = this.deck.getCard();
         for (var u of this.users) {
             if (username === u.username) {
-                let card = this.deck.getCard();
                 card.faceUp();
                 u.cards.push(card);
                 u.points = u.points + card.getScore();
