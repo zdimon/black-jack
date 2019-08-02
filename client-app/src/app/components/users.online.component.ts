@@ -40,13 +40,16 @@ import { SocketService } from '../services/socket.service';
           Join
         </ion-button>
       </ion-item>
+      <ion-item>
+      <ion-button 
+      color="success" 
+      expand="full"
+      (click)="playWithBot()">
+        Play with bot.
+      </ion-button>
+      </ion-item>
     </ion-list>
-    <ion-button 
-    color="success" 
-    expand="full"
-    (click)="playWithBot()">
-      Play with bot.
-    </ion-button>
+
   </ion-content>
   `
 })
