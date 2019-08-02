@@ -49,7 +49,7 @@ import { SocketService } from '../services/socket.service';
           slot="end" 
           (click)="changeBet('plus')"
           *ngIf="room.winner==me.username && room.status=='finished'">
-            Raise the bid
+             <ion-icon name="arrow-up"></ion-icon>
           </ion-button>
 
           <ion-button 
@@ -58,7 +58,7 @@ import { SocketService } from '../services/socket.service';
           slot="end" 
           (click)="changeBet('minus')"
           *ngIf="room.winner==me.username && room.status=='finished'">
-            Lower the bid
+          <ion-icon name="arrow-down"></ion-icon>
           </ion-button>
 
         </ion-buttons>
@@ -76,7 +76,7 @@ import { SocketService } from '../services/socket.service';
     
     <ion-card *ngIf="room && me">
       <ion-item>
-        <ion-card-header>Bit: {{ room.bet }} $</ion-card-header>
+        <ion-card-header class="bold big">Bit: {{ room.bet }} $</ion-card-header>
         <div class="item-note" slot="end">
         Balance: {{me.account}} $
       </div>
