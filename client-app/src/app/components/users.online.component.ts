@@ -20,7 +20,7 @@ import { SocketService } from '../services/socket.service';
       fill="outline" 
       slot="end" 
       (click)="update()">
-        Update
+      <ion-icon name="undo"></ion-icon>
       </ion-button> 
     </ion-buttons>
     </ion-toolbar>
