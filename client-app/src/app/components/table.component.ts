@@ -86,10 +86,10 @@ import { SocketService } from '../services/socket.service';
     <ion-card *ngIf="me" [style.backgroundColor]="room.current_player==me.username ? 'green' : 'silver'">
       <ion-card-header style="color: black">Your cards:</ion-card-header>
       <ion-card-content >
-          <ion-item>
-            <ul>
-              <li *ngFor="let card of me.cards"><app-card [card]="card"></app-card></li>
-            </ul>
+          <ion-item class="container">
+              <div class="card-container" *ngFor="let card of me.cards">
+              <app-card class="card" [card]="card"></app-card>
+              </div>
           </ion-item>
       </ion-card-content>
     </ion-card>
@@ -97,16 +97,17 @@ import { SocketService } from '../services/socket.service';
     
     
       <ion-card *ngIf="other" [style.backgroundColor]="room.current_player==other.username ? 'green' : 'silver'">
-        <ion-card-header style="color: black">{{ other.username }}'s cards</ion-card-header>
+        <ion-card-header style="color: black">
+        {{ other.username }}'s cards
+          <span class="bold" *ngIf="room.status=='finished'">
+          {{ other.points  }} points
+          </span>
+        </ion-card-header>
         <ion-card-content>
-          <ion-item *ngIf="room.status=='finished'">
-            <ion-label>Score:</ion-label>
-            <ion-label slot="end">{{ other.points  }}$</ion-label>
-          </ion-item>
-          <ion-item>
-            <ul>
-              <li *ngFor="let card of other.cards"><app-card [card]="card"></app-card></li>
-            </ul>
+          <ion-item class="container">
+              <div class="card-container" *ngFor="let card of other.cards">
+              <app-card class="card" [card]="card"></app-card>
+              </div>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -117,14 +118,7 @@ import { SocketService } from '../services/socket.service';
     </ion-content>
 
   `,
-  styles: [
-            'div {margin: 10px}',
-            '.my-active {border: 1px solid green }',
-            '.my-noactive {border: 1px solid silver }',
-            'li { display: inline-block; margin: 5px; }',
-            '.my-alert {background: red }',
-
-          ]
+  styleUrls: ['../css/table.css']
 })
 export class TableComponent implements OnInit {
   username: string ='';

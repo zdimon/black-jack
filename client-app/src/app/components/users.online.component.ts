@@ -41,6 +41,12 @@ import { SocketService } from '../services/socket.service';
         </ion-button>
       </ion-item>
     </ion-list>
+    <ion-button 
+    color="success" 
+    expand="full"
+    (click)="playWithBot(user)">
+      Play with bot.
+    </ion-button>
   </ion-content>
   `
 })
@@ -75,6 +81,10 @@ export class UsersOnlineComponent implements OnInit {
 
   update(){
     this.socket_service.getUsersOnline();
+  }
+
+  playWithBot(){
+    this.socket_service.createRoom(localStorage.getItem('username'),'BotFor'+localStorage.getItem('username'));
   }
 
 }

@@ -1,0 +1,26 @@
+div {margin: 10px}
+.my-active {border: 1px solid green }
+.my-noactive {border: 1px solid silver }
+li { display: inline-block; margin: 5px; }
+.my-alert {background: red }
+
+.container {
+    display: flex;
+    width: 400px;
+  }
+  .card-container {
+    flex: 1 0 0;
+    overflow-x: hidden;
+  }
+  .card-container:last-child {
+    flex: 0 0 auto;
+  }
+  .card {
+    background: linear-gradient(to right, #ccc 0%, #444 100%);
+    width: 100px;
+    height: 150px;
+  }
+
+.bold {
+    font-weight: bold;
+}
