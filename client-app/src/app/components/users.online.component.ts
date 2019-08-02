@@ -44,7 +44,7 @@ import { SocketService } from '../services/socket.service';
     <ion-button 
     color="success" 
     expand="full"
-    (click)="playWithBot(user)">
+    (click)="playWithBot()">
       Play with bot.
     </ion-button>
   </ion-content>
