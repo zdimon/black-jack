@@ -5,8 +5,13 @@ class UserManager {
         this.users = [];
     }
     addUser(username) {
-        this.users.push(username);
-        //this.createBot(username);
+        let is_exist = false;
+        for (let user of this.users) {
+            if (user == username)
+                is_exist = true;
+        }
+        if (!is_exist)
+            this.users.push(username);
     }
     deleteUser(username) {
         for (let i = 0; i < this.users.length; i++) {

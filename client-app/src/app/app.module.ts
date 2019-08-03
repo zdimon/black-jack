@@ -16,6 +16,7 @@ import { UsersOnlineComponent } from './components/users.online.component';
 import { TableComponent } from './components/table.component';
 import { CardComponent } from './components/card.component';
 import { SOCKET_SERVER } from '../global';
+import { FormsModule } from '@angular/forms';
 const config: SocketIoConfig = { url: SOCKET_SERVER, options: {} };
 
 @NgModule({
@@ -25,6 +26,7 @@ const config: SocketIoConfig = { url: SOCKET_SERVER, options: {} };
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    FormsModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Router} from "@angular/router";
 import { SocketService } from '../services/socket.service';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-login-form',
@@ -22,7 +23,7 @@ import { SocketService } from '../services/socket.service';
       <ion-label>What is your name?</ion-label>
       </ion-item>
       <ion-item>
-        <ion-input #username type="text" name="username"></ion-input>
+        <ion-input [(ngModel)]="username" type="text" name="username"></ion-input>
       </ion-item>
     </ion-list>
     <ion-button (click)="login(username.value)" color="primary" expand="full">Signin</ion-button>
@@ -35,6 +36,7 @@ import { SocketService } from '../services/socket.service';
 export class LoginComponent implements OnInit {
   username: string;
   is_auth: boolean = false;
+  login_subscription: Subscription;
   constructor(private router: Router, private socket_service: SocketService){
   }
 
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/online']);
     }
 
-    this.socket_service.checkLoginResult$.subscribe((data: any) => {
+    this.login_subscription = this.socket_service.checkLoginResult$.subscribe((data: any) => {
       if(data.status===1) {
         localStorage.removeItem('username');
         alert(data.message);
@@ -57,8 +59,12 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string){
-    this.username = username;
+    localStorage.setItem('username', this.username);
     this.socket_service.checkLogin(username);
+  }
+
+  ngOnDestroy() {
+    this.login_subscription.unsubscribe();
   }
 
 }

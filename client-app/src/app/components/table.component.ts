@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 import { SocketService } from '../services/socket.service';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-game-table',
@@ -120,11 +121,12 @@ import { SocketService } from '../services/socket.service';
   `,
   styleUrls: ['../css/table.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   username: string ='';
   room: any;
   me: any = {};
   other: any = {};
+  getRoom_subscription: Subscription;
   constructor(
       private router: Router,
       private socket_service: SocketService,
@@ -137,7 +139,7 @@ export class TableComponent implements OnInit {
     } else {
       this.username = localStorage.getItem('username');
     }
-    this.socket_service.getRoom$.subscribe((room: any) => {
+    this.getRoom_subscription = this.socket_service.getRoom$.subscribe((room: any) => {
         this.room = room;
         for(let u of room.users){
           if(u.username == this.username) {
@@ -165,6 +167,10 @@ export class TableComponent implements OnInit {
 
   changeBet(type: string){
     this.socket_service.changeBet({'type':type, 'room_uuid': this.room.uuid});
+  }
+
+  ngOnDestroy(){
+    this.getRoom_subscription.unsubscribe();
   }
 
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Router, NavigationEnd} from "@angular/router";
 import { SocketService } from '../services/socket.service';
-
+import { Subscription, Observable } from "rxjs";
 
 @Component({
   selector: 'app-users-online',
@@ -53,26 +53,45 @@ import { SocketService } from '../services/socket.service';
   </ion-content>
   `
 })
-export class UsersOnlineComponent implements OnInit {
+export class UsersOnlineComponent implements OnInit, OnDestroy {
   users_online: any= [];
   room: any;
   mylogin: string;
+  usersOnline_subscription: Subscription;
+  createRoom_subscription: Subscription;
+
+
   constructor(private router: Router, private socket_service: SocketService){
+    this.router.events.subscribe(e => { 
+      if (e instanceof NavigationEnd) {
+        console.log('NavigationEnd:', event);
+        setTimeout(() => {
+          console.log('getting user online');
+          this.socket_service.getUsersOnline();
+          
+        },1000);
+      }
+    }
+    );
   }
 
   ngOnInit(){
+      console.log('On init');
       this.mylogin = localStorage.getItem('username');
       this.socket_service.login(this.mylogin);
-      this.socket_service.usersOnline$.subscribe((users_online: any) => {
+      this.usersOnline_subscription = this.socket_service.usersOnline$.subscribe((users_online: any) => {
+        
         this.users_online = users_online;
         console.log('Getting online users');
       })
-      this.socket_service.createRoom$.subscribe((room: any) => {
+      this.createRoom_subscription = this.socket_service.createRoom$.subscribe((room: any) => {
         this.room = room;
         this.router.navigate(["room", room.uuid]);
       })
       
-        this.socket_service.getUsersOnline();
+
+
+      
       
      
   }
@@ -88,6 +107,11 @@ export class UsersOnlineComponent implements OnInit {
 
   playWithBot(){
     this.socket_service.createRoom(localStorage.getItem('username'),'BotFor'+localStorage.getItem('username'));
+  }
+
+  ngOnDestroy(){
+    this.usersOnline_subscription.unsubscribe();
+    this.createRoom_subscription.unsubscribe();
   }
 
 }

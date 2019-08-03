@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SocketService } from './services/socket.service';
 import {Router} from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy, OnInit {
   is_auth: boolean;
   username: string;
+  login_subscription: Subscription;
   public appPages = [
     {
       title: 'Home',
@@ -42,8 +44,9 @@ export class AppComponent {
       this.is_auth = true;
     }
 
-    this.socket_service.login$.subscribe((data: any) => {
+    this.login_subscription = this.socket_service.login$.subscribe((data: any) => {
       console.log('Login');
+      console.log(data);
       this.is_auth = true;
       this.username = data.username;
 
@@ -56,13 +59,7 @@ export class AppComponent {
 
     if(!localStorage.getItem('username')){
       this.router.navigate(['login']);
-    } else {
-      this.username = localStorage.getItem('username');
-      this.socket_service.login(this.username);
-      
-      this.router.navigate(['/online']);
-      
-    }
+    } 
 
   }
 
@@ -77,5 +74,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  ngOnDestroy(){
+    this.login_subscription.unsubscribe();
   }
 }
