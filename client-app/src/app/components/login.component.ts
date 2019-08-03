@@ -26,7 +26,7 @@ import { Subscription } from "rxjs";
         <ion-input [(ngModel)]="username" type="text" name="username"></ion-input>
       </ion-item>
     </ion-list>
-    <ion-button (click)="login(username.value)" color="primary" expand="full">Signin</ion-button>
+    <ion-button (click)="login()" color="primary" expand="full">Signin</ion-button>
   </ion-content>
    
 
@@ -58,9 +58,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(username: string){
+  login(){
     localStorage.setItem('username', this.username);
-    this.socket_service.checkLogin(username);
+    this.socket_service.checkLogin(this.username);
   }
 
   ngOnDestroy() {
