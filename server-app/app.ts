@@ -78,6 +78,9 @@ io.on('connection', function(socket: any){
     for(let user of room.users){
       if (data.username!=user.username && user.username.indexOf('BotFor') == -1){
         room.current_player = user.username;
+        let card1 = room.deck.getCard();
+        card1.faceUp();
+        user.cards.push(card1);
       }
     }
     
