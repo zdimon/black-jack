@@ -6,7 +6,7 @@ class UserManager {
     }
     addUser(username) {
         this.users.push(username);
-        this.createBot(username);
+        //this.createBot(username);
     }
     deleteUser(username) {
         for (let i = 0; i < this.users.length; i++) {

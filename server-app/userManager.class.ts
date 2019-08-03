@@ -3,7 +3,7 @@ export class UserManager {
 
   addUser(username: string): void {
       this.users.push(username);
-      this.createBot(username);
+      //this.createBot(username);
   }
 
 

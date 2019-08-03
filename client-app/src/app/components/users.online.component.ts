@@ -20,7 +20,7 @@ import { SocketService } from '../services/socket.service';
       fill="outline" 
       slot="end" 
       (click)="update()">
-        Update
+      <ion-icon name="undo"></ion-icon>
       </ion-button> 
     </ion-buttons>
     </ion-toolbar>
@@ -40,7 +40,16 @@ import { SocketService } from '../services/socket.service';
           Join
         </ion-button>
       </ion-item>
+      <ion-item>
+      <ion-button 
+      color="success" 
+      expand="full"
+      (click)="playWithBot()">
+        Play with bot.
+      </ion-button>
+      </ion-item>
     </ion-list>
+
   </ion-content>
   `
 })
@@ -75,6 +84,10 @@ export class UsersOnlineComponent implements OnInit {
 
   update(){
     this.socket_service.getUsersOnline();
+  }
+
+  playWithBot(){
+    this.socket_service.createRoom(localStorage.getItem('username'),'BotFor'+localStorage.getItem('username'));
   }
 
 }
